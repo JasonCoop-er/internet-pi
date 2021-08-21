@@ -30,13 +30,22 @@
 
 - name: Copy local DNS configuration for Pi-Hole
   ansible.builtin.template:
-    synchronize: 
-     src: files/custom.list
-     # dest: "{{ config_dir }}/etc-pihole/{{ item.dest }}"
-     dest: "{{ config_dir }}/"/etc/pihole/custom.list"
-     mode: 0644
-  when: file.stat.exists 
-
+#    synchronize: 
+#     src: files/pihole/custom.list
+#     dest: "{{ config_dir }}/etc-pihole/{{ item.dest }}"
+#     dest: "{{ config_dir }}/"/etc/pihole/custom.list"
+#     mode: 0644
+#  when: file.stat.exists 
+    src: files/pihole/{{ item.src }}
+    dest: "{{ config_dir }}/etc-pihole/{{ item.dest }}"
+    mode: 0644
+  loop:
+    - src: custom.list.config
+      dest: custom.list
+    - src: adlists.list.config
+      dest: adlist.list
+  notify: Restart pi-hole
+  
   community.docker.docker_compose:
     project_src: "{{ config_dir }}/pi-hole/"
     build: false
