@@ -22,6 +22,8 @@
     build: false
   become: false
 
+# Support deploying custom.list to /etc/pihole so Pihole will
+# serve local addresses
 - name: Check if local DNS configuration for Pi-Hole exists
   local_action: stat path="/home/jason/code/internet-pi/files/custom.list"
   register: file
@@ -30,7 +32,8 @@
   ansible.builtin.template:
     synchronize: 
      src: files/custom.list
-     dest: "{{ config_dir }}/etc-pihole/{{ item.dest }}"
+     # dest: "{{ config_dir }}/etc-pihole/{{ item.dest }}"
+     dest: "{{ config_dir }}/"/etc/pihole/custom.list"
      mode: 0644
   when: file.stat.exists 
 
