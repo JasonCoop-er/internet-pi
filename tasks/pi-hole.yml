@@ -17,13 +17,13 @@
 - name: Copy local Pi-hole files into place.
   ansible.builtin.template:
     src: templates/{{ item.src }}
-    dest: "{{ config_dir }}/etc-pihole/{{ item.dest }}"
+    dest: "{{ config_dir }}/pi-hole/{{ item.dest }}"
     mode: 0644
   loop:
     - src: custom.list.config
-      dest: custom.list
+      dest: etc-pihole/custom.list
     - src: adlists.list.config
-      dest: adlist.list
+      dest: etc-pihole/adlist.list
   notify: Restart pihole
   become: false
 
