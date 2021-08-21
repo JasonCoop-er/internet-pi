@@ -14,7 +14,7 @@
   become: false
   notify: Restart pi-hole
 
-- name: Copy local Pi-hole files into place.
+- name: Copy Pi-hole local DNS files into place.
   ansible.builtin.template:
     src: templates/{{ item.src }}
     dest: "{{ config_dir }}/pi-hole/{{ item.dest }}"
