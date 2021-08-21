@@ -24,9 +24,12 @@
 
 # Support deploying custom.list to /etc/pihole so Pihole will
 # serve local addresses
-- name: Check if local DNS configuration for Pi-Hole exists
-  local_action: stat path="/home/jason/code/internet-pi/files/custom.list"
-  register: file
+#- name: Check if local DNS configuration for Pi-Hole exists
+#  local_action: stat path="/home/jason/code/internet-pi/files/custom.list.config"
+#  register: file
+#- name: Check if local DNS configuration for Pi-Hole exists
+#  local_action: stat path="/home/jason/code/internet-pi/files/custom.list.config"
+#  register: file
 
 - name: Copy local DNS configuration for Pi-Hole
   ansible.builtin.template:
@@ -45,7 +48,7 @@
     - src: adlists.list.config
       dest: adlist.list
   notify: Restart pi-hole
-  
+
   community.docker.docker_compose:
     project_src: "{{ config_dir }}/pi-hole/"
     build: false
