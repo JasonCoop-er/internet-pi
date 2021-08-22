@@ -19,6 +19,7 @@ services:
       WEBPASSWORD: '{{ pihole_password }}'
       ServerIP: '{{ ansible_facts['default_ipv4']['address'] }}'
       PIHOLE_DNS_: 1.1.1.1, 1.0.0.1
+      DNSMASQ_LISTENING: '{{ pihole_dnsmasq }}'
     dns:
       - 127.0.0.1
       - 8.8.8.8
